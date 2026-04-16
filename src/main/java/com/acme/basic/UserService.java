@@ -31,4 +31,22 @@ public class UserService {
         byte[] hash = md.digest(password.getBytes());
         return new String(hash);
     }
+
+    // Command injection (SONAR: S4721)
+    public void runReport(String reportName) throws IOException {
+        Runtime.getRuntime().exec("generateReport.sh " + reportName);
+    }
+
+        // Path traversal (SONAR: S2083)
+    public String readFile(String filename) throws IOException {
+        File file = new File("/app/reports/" + filename);
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        // Resource leak: reader is never closed (SONAR: S2095)
+        return sb.toString();
+    }
 }
