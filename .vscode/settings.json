@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "http://localhost:9000",
+        "projectKey": "wenhan-sonar_maven-example_565b7dd3-ef68-4ada-bd4a-182a94ffdb5f"
+    }
+}
