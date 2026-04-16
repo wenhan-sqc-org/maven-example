@@ -18,4 +18,17 @@ public class UserService {
         // Hardcoded connection string with credentials
         this.connection = DriverManager.getConnection(DB_URL);
     }
+    // SQL Injection (SONAR: S3649)
+    public ResultSet findUser(String username) throws SQLException {
+        String query = "SELECT * FROM users WHERE username = '" + username + "'";
+        Statement stmt = connection.createStatement();
+        return stmt.executeQuery(query);
+    }
+
+    // Weak hashing algorithm for passwords (SONAR: S4790, S2070)
+    public String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hash = md.digest(password.getBytes());
+        return new String(hash);
+    }
 }
