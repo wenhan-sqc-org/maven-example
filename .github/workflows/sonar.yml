@@ -35,6 +35,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
-          SONAR_TOKEN: ${{ secrets.NAUTILUS2_SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.NAUTILUS2_SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_LOCAL_ENV }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL_LOCAL_ENV }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=wenhan-sonar_maven-example_565b7dd3-ef68-4ada-bd4a-182a94ffdb5f -Dsonar.projectName='maven-example'
